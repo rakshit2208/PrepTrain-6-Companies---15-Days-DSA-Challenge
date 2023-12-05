@@ -1,0 +1,90 @@
+#include <bits/stdc++.h> 
+
+void bfsshortestpath(int src,int t,unordered_map<int,list<int>> &adj,vector<bool> &vis,vector<int> &ans){
+
+    queue<int> q;
+
+    unordered_map<int,int> parent;
+
+    vis[src]=true;
+
+    parent[src]=-1;
+
+    q.push(src);
+
+    while(!q.empty()){
+
+ 
+
+        int front = q.front();
+
+        q.pop();
+
+ 
+
+    for(auto neigbour:adj[front]){
+
+        if(!vis[neigbour]){
+
+            vis[neigbour]=true;
+
+            parent[neigbour]=front;
+
+            q.push(neigbour);
+
+        }
+
+ 
+
+    }
+
+ 
+
+    }
+
+    int currentnode =t;
+
+    ans.push_back(t);
+
+    while(currentnode != src ){
+
+        currentnode=parent[currentnode];
+
+        ans.push_back(currentnode);
+
+    }
+
+    reverse(ans.begin(),ans.end());
+
+}
+
+ 
+vector<int> shortestPath( vector<pair<int,int>> edges , int n , int m, int s , int t){
+    // Write your code here
+
+    unordered_map<int,list<int>> adj;
+
+    for(int i=0;i<m;i++){
+
+        int u = edges[i].first;
+
+        int v= edges[i].second;
+
+        adj[u].push_back(v);
+
+        adj[v].push_back(u);
+
+    }
+
+    vector<int> ans;
+
+    vector<bool> vis(n);
+
+    bfsshortestpath(s,t,adj,vis,ans);
+
+    return ans;
+
+    
+
+}
+
