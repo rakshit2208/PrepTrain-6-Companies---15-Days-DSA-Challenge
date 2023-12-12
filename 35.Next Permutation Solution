@@ -1,0 +1,13 @@
+#include <bits/stdc++.h> 
+
+vector<int> nextPermutation(vector<int> &permutation, int n)
+
+{
+
+    //C++ Standard library
+
+  next_permutation(permutation.begin(),permutation.end());
+
+  return permutation;
+
+}
