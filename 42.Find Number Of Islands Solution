@@ -1,0 +1,44 @@
+void dfs(int row, int col, int **arr, int delrow[], int delcol[], int n, int m, vector<vector<int>> &visited) {
+   visited[row][col] = 1;
+
+   for(int i=0; i<8; i++) {
+      int nrow = row + delrow[i];
+      int ncol = col + delcol[i];
+
+      if(nrow >= 0 && nrow < n && ncol >= 0 && ncol < m && !visited[nrow][ncol] && arr[nrow][ncol] == 1) {
+         dfs(nrow, ncol, arr, delrow, delcol, n, m, visited);
+      }
+   }
+}
+
+void dfs(int row, int col, int **arr, vector<vector<int>> &vis, int delrow[], int delcol[],int n, int m) {
+   vis[row][col]=1;
+
+   for(int i=0;i<8;i++) {
+      int nrow = row + delrow[i];
+      int ncol = col + delcol[i];
+
+      if(nrow >= 0 && nrow < n && ncol >= 0 && ncol < m && !vis[nrow][ncol] && arr[nrow][ncol] == 1) {
+         dfs(nrow, ncol, arr, vis, delrow, delcol,n,m);
+      }
+
+   }
+}
+
+int getTotalIslands(int** arr, int n, int m) {
+   vector<vector<int>> visited(n, vector<int> (m, 0));
+   int delrow[] = {-1, -1, 0, 1, 1, 1, 0, -1};
+   int delcol[] = {0, 1, 1, 1, 0, -1, -1, -1};
+   int count = 0;
+
+   for(int i=0; i<n; i++) {
+      for(int j=0; j<m; j++) {
+         if(!visited[i][j] && arr[i][j] == 1) {
+            // dfs(i, j, arr, delrow, delrow, n, m, visited);
+            dfs(i, j, arr, visited, delrow, delcol, n, m);
+            count++;
+         }
+      }
+   }
+   return count;
+}
